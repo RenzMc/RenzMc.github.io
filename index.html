@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebKu</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .heart-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.2s;
+        }
+
+        .heart-button img {
+            width: 100px;
+            height: 100px;
+            filter: hue-rotate(0deg) brightness(0.8) saturate(2);
+        }
+
+        .heart-button:active img {
+            transform: scale(1.1);
+        }
+
+        .message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .message span {
+            display: block;
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+
+        .heart-animation, .flower-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart, .flower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 61% 19%, 98% 35%, 75% 63%, 80% 100%, 50% 85%, 20% 100%, 25% 63%, 2% 35%, 39% 19%);
+            animation: float 5s infinite ease-in-out;
+            opacity: 0.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.8em;
+        }
+
+        .flower {
+            background-color: pink;
+            clip-path: none;
+            border-radius: 50%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .heart-button img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .message {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+    <div class="container">
+        <button class="heart-button" onclick="showMessage(); showFlowers()">
+            <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Heart Icon">
+            <h1><b>CLICK THIS LOVE!</b></h1>
+        </button>
+        <div class="message" id="message">
+            Terima kasih banyak sudah selalu ada untukku, Repa. Aku merasa sangat beruntung bisa memiliki seseorang sepertimu di hidupku. Kehadiranmu selalu membawa kebahagiaan dan kenyamanan yang luar biasa. Setiap momen yang kita lewati bersama selalu terasa spesial dan penuh makna. Aku sangat menghargai segala dukungan, canda tawa, dan kebersamaan yang kita miliki. Kau telah menjadi bagian penting dalam hidupku dan membuat hari-hariku lebih berwarna. Rasanya susah untuk membayangkan bagaimana hidupku tanpa kehadiranmu. Kau benar-benar membuatku merasa istimewa dan aku sangat bersyukur atas semua itu. Aku tidak tahu apa yang akan terjadi di masa depan, tapi satu hal yang pasti, aku akan selalu mengingat dan menghargai semua momen berharga yang kita lalui bersama. Terima kasih atas semuanya.
+            <span>- Renz</span>
+        </div>
+    </div>
+    <div class="heart-animation" id="heart-animation"></div>
+    <div class="flower-animation" id="flower-animation"></div>
+
+    <script>
+        function showMessage() {
+            document.getElementById('message').style.display = 'block';
+        }
+
+        function createHearts() {
+            const heartAnimation = document.getElementById('heart-animation');
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.innerText = 'Repa';
+                heartAnimation.appendChild(heart);
+            }
+        }
+
+        function showFlowers() {
+            const flowerAnimation = document.getElementById('flower-animation');
+            for (let i = 0; i < 20; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.animationDelay = `${Math.random() * 1}s`;
+                flowerAnimation.appendChild(flower);
+            }
+            setTimeout(() => {
+                flowerAnimation.innerHTML = '';
+            }, 5000);
+        }
+
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
